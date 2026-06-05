@@ -1,0 +1,167 @@
+export interface NeighborhoodData {
+  id: string
+  name: string
+  sector: string
+  rentalYield: number
+  priceGrowth: number
+  infrastructure: number
+  avgPricePerSqFt: number
+  tier: 'premium' | 'mid' | 'emerging'
+  trend: 'up' | 'stable' | 'watch'
+  highlights: string[]
+}
+
+export const neighborhoods: NeighborhoodData[] = [
+  {
+    id: 'nh-001',
+    name: 'Golf Course Road',
+    sector: 'Sectors 54–56',
+    rentalYield: 4.2,
+    priceGrowth: 14.8,
+    infrastructure: 9.5,
+    avgPricePerSqFt: 18500,
+    tier: 'premium',
+    trend: 'up',
+    highlights: ['Best infrastructure', 'Highest liquidity', 'Corporate expat demand'],
+  },
+  {
+    id: 'nh-002',
+    name: 'DLF Phase 5',
+    sector: 'Sector 43',
+    rentalYield: 3.9,
+    priceGrowth: 16.2,
+    infrastructure: 9.2,
+    avgPricePerSqFt: 21000,
+    tier: 'premium',
+    trend: 'up',
+    highlights: ['Trophy addresses', 'HNI community', 'Low supply, high demand'],
+  },
+  {
+    id: 'nh-003',
+    name: 'Cyber City / Udyog Vihar',
+    sector: 'DLF Cyber Hub',
+    rentalYield: 7.8,
+    priceGrowth: 9.5,
+    infrastructure: 9.8,
+    avgPricePerSqFt: 14500,
+    tier: 'premium',
+    trend: 'up',
+    highlights: ['Best commercial yields', 'Fortune 500 tenants', 'LEED certified stock'],
+  },
+  {
+    id: 'nh-004',
+    name: 'Sohna Road',
+    sector: 'Sectors 48–70',
+    rentalYield: 4.8,
+    priceGrowth: 18.5,
+    infrastructure: 7.5,
+    avgPricePerSqFt: 9200,
+    tier: 'mid',
+    trend: 'up',
+    highlights: ['Upcoming elevated corridor', 'Medical hub proximity', 'Best value-growth combo'],
+  },
+  {
+    id: 'nh-005',
+    name: 'Dwarka Expressway',
+    sector: 'Sectors 82–115',
+    rentalYield: 5.4,
+    priceGrowth: 19.2,
+    infrastructure: 8.0,
+    avgPricePerSqFt: 8800,
+    tier: 'mid',
+    trend: 'up',
+    highlights: ['Expressway now operational', 'Massive supply absorption', 'Best NRI entry price'],
+  },
+  {
+    id: 'nh-006',
+    name: 'MG Road',
+    sector: 'Sectors 14–28',
+    rentalYield: 4.6,
+    priceGrowth: 11.8,
+    infrastructure: 8.8,
+    avgPricePerSqFt: 14800,
+    tier: 'premium',
+    trend: 'stable',
+    highlights: ['Metro connectivity', 'Old Gurgaon premium', 'High liquidity'],
+  },
+  {
+    id: 'nh-007',
+    name: 'Golf Course Extension',
+    sector: 'Sectors 50–65',
+    rentalYield: 4.0,
+    priceGrowth: 13.5,
+    infrastructure: 8.5,
+    avgPricePerSqFt: 15200,
+    tier: 'premium',
+    trend: 'up',
+    highlights: ['Low density living', 'Premium villa belt', 'Growing tech demand'],
+  },
+  {
+    id: 'nh-008',
+    name: 'New Gurgaon (Sectors 82–95)',
+    sector: 'Sectors 82–95',
+    rentalYield: 5.8,
+    priceGrowth: 21.4,
+    infrastructure: 6.8,
+    avgPricePerSqFt: 7500,
+    tier: 'emerging',
+    trend: 'up',
+    highlights: ['Highest appreciation zone', 'Lowest entry price', 'Under-built now, over-valued next'],
+  },
+  {
+    id: 'nh-009',
+    name: 'Sohna (Aravalli Foothills)',
+    sector: 'Sohna Town',
+    rentalYield: 3.2,
+    priceGrowth: 24.0,
+    infrastructure: 6.0,
+    avgPricePerSqFt: 5500,
+    tier: 'emerging',
+    trend: 'watch',
+    highlights: ['Land appreciation play', 'Eco-tourism potential', 'Aravalli proximity premium'],
+  },
+  {
+    id: 'nh-010',
+    name: 'Palam Vihar',
+    sector: 'Old Gurgaon',
+    rentalYield: 6.2,
+    priceGrowth: 8.5,
+    infrastructure: 7.2,
+    avgPricePerSqFt: 8000,
+    tier: 'mid',
+    trend: 'stable',
+    highlights: ['Established residential', 'Stable rental market', 'Good connectivity'],
+  },
+  {
+    id: 'nh-011',
+    name: 'IMT Manesar',
+    sector: 'Manesar Industrial',
+    rentalYield: 8.5,
+    priceGrowth: 12.0,
+    infrastructure: 7.8,
+    avgPricePerSqFt: 5200,
+    tier: 'emerging',
+    trend: 'up',
+    highlights: ['Best industrial yields in NCR', 'Toyota & Maruti proximity', 'Logistics boom'],
+  },
+  {
+    id: 'nh-012',
+    name: 'Sector 65–67 (New Residential)',
+    sector: 'Sectors 65–67',
+    rentalYield: 4.9,
+    priceGrowth: 17.8,
+    infrastructure: 7.6,
+    avgPricePerSqFt: 9800,
+    tier: 'mid',
+    trend: 'up',
+    highlights: ['Plot appreciation hotspot', 'Close to Golf Course Ext.', 'Strong builder supply'],
+  },
+]
+
+export type HeatmapLayer = 'rentalYield' | 'priceGrowth' | 'infrastructure'
+
+export const layerConfig: Record<HeatmapLayer, { label: string; unit: string; low: number; mid: number; high: number }> = {
+  rentalYield: { label: 'Rental Yield', unit: '%', low: 3.0, mid: 5.5, high: 8.5 },
+  priceGrowth: { label: 'Annual Price Growth', unit: '%', low: 8.0, mid: 15.0, high: 24.0 },
+  infrastructure: { label: 'Infrastructure Score', unit: '/10', low: 6.0, mid: 8.0, high: 9.8 },
+}
