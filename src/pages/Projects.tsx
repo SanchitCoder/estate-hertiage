@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, MapPin, SlidersHorizontal, X } from 'lucide-react'
-import { projects, corridorLabels, statusLabels, type Project, type ProjectStatus } from '@/data/projects'
+import { projects, corridorLabels, statusLabels, getCorridorLabel, type Project, type ProjectStatus } from '@/data/projects'
 import type { CorridorId } from '@/data/corridors'
 import { staggerContainer, fadeUp, scaleIn } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
@@ -31,7 +31,7 @@ function ProjectCard({ project }: { project: Project }) {
           {project.featured && <Badge variant="accent">Featured</Badge>}
         </div>
         <div className="absolute top-3 right-3">
-          <Badge variant="navy">{corridorLabels[project.corridor]}</Badge>
+          <Badge variant="navy">{getCorridorLabel(project)}</Badge>
         </div>
       </div>
       <div className="p-5 flex flex-col flex-1">

@@ -1,7 +1,7 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Download, MessageCircle, Phone } from 'lucide-react'
-import { getProjectBySlug, getSimilarProjects, corridorLabels, statusLabels } from '@/data/projects'
+import { ArrowRight, MapPin, Download, MessageCircle, Phone, ExternalLink, AlertTriangle } from 'lucide-react'
+import { getProjectBySlug, getSimilarProjects, statusLabels, getCorridorLabel } from '@/data/projects'
 import { staggerContainer, fadeUp } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
 import Badge from '@/components/ui/Badge'
@@ -21,6 +21,26 @@ export default function ProjectDetail() {
 
   const similar = getSimilarProjects(project)
   const whatsappText = encodeURIComponent(`Hello, I'm interested in ${project.name}. I'd like to discuss unit selection and current availability.`)
+  const corridorLabel = getCorridorLabel(project)
+
+  const snapshotRows: [string, string][] = [
+    ['Developer', project.developer],
+    ...(project.brandPartner ? [['Brand Partner', project.brandPartner] as [string, string]] : []),
+    ['Location', project.location],
+    ['Corridor', corridorLabel],
+    ['Project Type', project.projectType],
+    ...(project.landArea ? [['Land Area', project.landArea] as [string, string]] : []),
+    ...(project.totalUnits ? [['Total Units', project.totalUnits] as [string, string]] : []),
+    ['Type', project.type === 'residential' ? 'Luxury Residential' : 'Commercial'],
+    ['Configurations', project.configurations],
+    ...(project.superAreaRange ? [['Super Area', project.superAreaRange] as [string, string]] : []),
+    ['Starting Price', project.startingPrice],
+    ['Possession', project.possession],
+    ['Status', statusLabels[project.status]],
+    ['RERA No.', project.rera],
+    ...(project.paymentPlan ? [['Payment Plan', project.paymentPlan] as [string, string]] : []),
+    ...(project.eoiAmount ? [['EOI Amount', project.eoiAmount] as [string, string]] : []),
+  ]
 
   return (
     <div className="pt-20">
@@ -33,7 +53,7 @@ export default function ProjectDetail() {
           <motion.div variants={staggerContainer} initial="hidden" animate="visible">
             <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-4">
               <Badge variant="gold">{statusLabels[project.status]}</Badge>
-              <Badge variant="navy">{corridorLabels[project.corridor]}</Badge>
+              <Badge variant="navy">{corridorLabel}</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="font-display text-display-xl text-off-white mb-3">{project.name}</motion.h1>
             <motion.p variants={fadeUp} className="font-display text-display-sm text-gold italic mb-4 max-w-2xl">{project.advisoryHook}</motion.p>
@@ -53,9 +73,49 @@ export default function ProjectDetail() {
               <p className="font-sans text-base text-mist/70 leading-relaxed">{project.overview}</p>
             </section>
 
+            <section>
+              <h2 className="font-display text-display-md text-off-white mb-4">Key Highlights</h2>
+              <ul className="space-y-3">
+                {project.keyHighlights.map((item) => (
+                  <li key={item} className="font-sans text-sm text-mist/70 flex items-start gap-3">
+                    <span className="text-gold mt-1 shrink-0">✦</span>
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            {project.priceTable && project.priceTable.length > 0 && (
+              <section>
+                <h2 className="font-display text-display-md text-off-white mb-4">Price List (at launch)</h2>
+                <div className="glass-card rounded-xl overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="border-b border-white/10">
+                          <th className="font-sans text-xs font-500 text-gold uppercase tracking-wide px-5 py-3">Configuration</th>
+                          <th className="font-sans text-xs font-500 text-gold uppercase tracking-wide px-5 py-3">Size</th>
+                          <th className="font-sans text-xs font-500 text-gold uppercase tracking-wide px-5 py-3">Price (Onwards)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {project.priceTable.map((row) => (
+                          <tr key={row.configuration} className="border-b border-white/6 last:border-0">
+                            <td className="font-sans text-sm text-off-white px-5 py-3">{row.configuration}</td>
+                            <td className="font-sans text-sm text-mist/70 px-5 py-3">{row.size}</td>
+                            <td className="font-sans text-sm text-gold px-5 py-3">{row.price}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            )}
+
             {project.connectivity.length > 0 && (
               <section>
-                <h2 className="font-display text-display-md text-off-white mb-4">Connectivity</h2>
+                <h2 className="font-display text-display-md text-off-white mb-4">Location &amp; Connectivity</h2>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {project.connectivity.map((c) => (
                     <div key={c.label} className="glass-card p-4 rounded-xl">
@@ -69,7 +129,7 @@ export default function ProjectDetail() {
 
             {project.amenities.length > 0 && (
               <section>
-                <h2 className="font-display text-display-md text-off-white mb-4">Amenities</h2>
+                <h2 className="font-display text-display-md text-off-white mb-4">Amenities &amp; Features</h2>
                 <div className="space-y-4">
                   {project.amenities.map((group) => (
                     <div key={group.category} className="glass-card p-5 rounded-xl">
@@ -87,17 +147,41 @@ export default function ProjectDetail() {
               </section>
             )}
 
+            <section className="glass-card border border-accent/20 p-6 rounded-2xl">
+              <h2 className="font-display text-display-md text-off-white mb-4">Investment Snapshot</h2>
+              <p className="font-sans text-base text-mist/70 leading-relaxed">{project.investmentSnapshot}</p>
+            </section>
+
+            {project.disclosures && project.disclosures.length > 0 && (
+              <section className="glass-card border border-amber-500/20 p-6 rounded-2xl">
+                <div className="flex items-start gap-3 mb-3">
+                  <AlertTriangle size={18} className="text-amber-400 shrink-0 mt-0.5" />
+                  <h2 className="font-display text-display-sm text-off-white">Important Disclosure</h2>
+                </div>
+                <div className="space-y-3">
+                  {project.disclosures.map((d) => (
+                    <p key={d} className="font-sans text-sm text-mist/70 leading-relaxed">{d}</p>
+                  ))}
+                </div>
+              </section>
+            )}
+
             <section>
               <h2 className="font-display text-display-md text-off-white mb-4">Developer</h2>
               <p className="font-sans text-base text-mist/70">
                 {project.developer}
-                {project.brandPartner && <> in partnership with <span className="text-gold">{project.brandPartner}</span></>}
+                {project.brandPartner && (
+                  <>
+                    {' '}
+                    in partnership with <span className="text-gold">{project.brandPartner}</span>
+                  </>
+                )}
               </p>
             </section>
 
             {project.advisoryNote && (
               <section className="glass-card border border-gold/20 p-6 rounded-2xl">
-                <h2 className="font-display text-display-md text-off-white mb-4">E&HA Advisory Note</h2>
+                <h2 className="font-display text-display-md text-off-white mb-4">E&amp;HA Advisory Note</h2>
                 <div className="space-y-4">
                   <div>
                     <p className="font-sans text-xs text-gold uppercase tracking-wide mb-1">Investment Thesis</p>
@@ -118,27 +202,31 @@ export default function ProjectDetail() {
                 </div>
               </section>
             )}
+
+            {project.brochureUrl && (
+              <section>
+                <h2 className="font-display text-display-md text-off-white mb-4">Official Project Page</h2>
+                <a
+                  href={project.brochureUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-sans text-sm text-gold hover:text-gold-light transition-colors"
+                >
+                  View full details &amp; brochure on developer website
+                  <ExternalLink size={14} />
+                </a>
+              </section>
+            )}
           </div>
 
           <div className="space-y-6">
             <div className="glass-card border border-gold/15 p-6 rounded-2xl sticky top-28">
               <h3 className="font-display text-display-sm text-off-white mb-4">Project Snapshot</h3>
               <dl className="space-y-3">
-                {[
-                  ['Developer', project.developer],
-                  ...(project.brandPartner ? [['Brand Partner', project.brandPartner]] : []),
-                  ['Location', project.location],
-                  ['Type', project.type === 'residential' ? 'Luxury Residential' : 'Commercial'],
-                  ...(project.configurations ? [['Configurations', project.configurations]] : []),
-                  ...(project.superAreaRange ? [['Super Area', project.superAreaRange]] : []),
-                  ['Starting Price', project.startingPrice],
-                  ['Possession', project.possession],
-                  ['Status', statusLabels[project.status]],
-                  ['RERA No.', project.rera],
-                ].map(([label, value]) => (
-                  <div key={label as string} className="border-b border-white/6 pb-3">
+                {snapshotRows.map(([label, value]) => (
+                  <div key={label} className="border-b border-white/6 pb-3">
                     <dt className="font-sans text-xs text-mist/50 uppercase tracking-wide">{label}</dt>
-                    <dd className="font-sans text-sm text-off-white mt-0.5">{value}</dd>
+                    <dd className="font-sans text-sm text-off-white mt-0.5 leading-relaxed">{value}</dd>
                   </div>
                 ))}
               </dl>
@@ -162,10 +250,17 @@ export default function ProjectDetail() {
               <MessageCircle size={16} />
               WhatsApp Enquiry
             </a>
-            <button className="btn-ghost-gold group">
-              <Download size={16} />
-              Download Brochure
-            </button>
+            {project.brochureUrl ? (
+              <a href={project.brochureUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold group">
+                <Download size={16} />
+                View Brochure
+              </a>
+            ) : (
+              <button className="btn-ghost-gold group">
+                <Download size={16} />
+                Download Brochure
+              </button>
+            )}
           </div>
         </section>
 

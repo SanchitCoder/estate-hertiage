@@ -1,4 +1,4 @@
-import{w as e,x as t,y as o,z as s}from"./index-DChf2eG3.js";const a=[{title:"1. Information We Collect",content:`We collect information you provide directly to us when you:
+import{w as e,x as t,y as o,z as s}from"./index--8VNBV3R.js";const a=[{title:"1. Information We Collect",content:`We collect information you provide directly to us when you:
 • Fill in forms on our website (name, email, phone number, property details)
 • Book a consultation or appointment
 • Subscribe to our newsletter

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, MapPin } from 'lucide-react'
 import { featuredProjects } from '@/data/projects'
-import { corridorLabels, statusLabels } from '@/data/projects'
+import { statusLabels, getCorridorLabel } from '@/data/projects'
 import { staggerContainer, fadeUp, scaleIn } from '@/lib/animations'
 import Badge from '@/components/ui/Badge'
 
@@ -21,7 +21,7 @@ function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; 
           <Badge variant="gold">{statusLabels[project.status]}</Badge>
         </div>
         <div className="absolute top-3 right-3">
-          <Badge variant="navy">{corridorLabels[project.corridor]}</Badge>
+          <Badge variant="navy">{getCorridorLabel(project)}</Badge>
         </div>
       </div>
 

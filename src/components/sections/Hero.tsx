@@ -14,8 +14,8 @@ const trustAnchors = [
   },
   {
     icon: Building2,
-    title: '18 Active Projects Tracked',
-    desc: "A focused project universe across Gurugram's most relevant luxury and new-launch micro-markets, including branded residences, institutional developer launches, and high-conviction corridor plays.",
+    title: '7 Active Projects Tracked',
+    desc: "A curated residential project universe across Gurugram's most relevant luxury and new-launch micro-markets on Dwarka Expressway and SPR, including branded residences, institutional developer launches, and high-conviction corridor plays.",
   },
   {
     icon: Map,
