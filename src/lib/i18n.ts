@@ -20,7 +20,7 @@ const translations = {
       subheading:
         'Research-led guidance for investors, end-users, NRIs, and corporate decision-makers evaluating Gurugram\'s most important emerging residential corridors.',
       ctaPrimary: 'Schedule an Advisory Call',
-      ctaSecondary: 'Explore Active Projects',
+      ctaSecondary: 'Contact Our Advisors',
     },
     footer: {
       tagline: 'Strategic Real Estate Advisory · Gurugram',

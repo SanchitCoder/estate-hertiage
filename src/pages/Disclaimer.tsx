@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { AlertTriangle } from 'lucide-react'
 import { staggerContainer, fadeUp } from '@/lib/animations'
+import { contact } from '@/lib/contact'
 
 export default function Disclaimer() {
   return (
@@ -33,7 +34,7 @@ export default function Disclaimer() {
               { title: 'RERA & Legal Compliance', content: 'Property buyers and investors are advised to conduct their own due diligence including RERA registration verification, title check, and legal scrutiny before entering into any transaction. E&H Advisors facilitates but does not guarantee the legal status of any property.' },
               { title: 'Third-Party Information', content: 'This website may contain market data, research reports, and information sourced from third parties. E&H Advisors is not responsible for the accuracy or completeness of third-party information.' },
               { title: 'No Solicitation', content: 'Nothing on this website constitutes a solicitation or offer to buy or sell any property or financial instrument. All enquiries submitted through this website are treated as expressions of interest only and do not constitute a binding agreement.' },
-              { title: 'Contact', content: 'If you have questions about this disclaimer, please contact us at legal@estatesheritage.in or +91 98180 12345.' },
+              { title: 'Contact', content: `If you have questions about this disclaimer, please contact us at ${contact.email} or ${contact.phoneDisplay}.` },
             ].map((s) => (
               <div key={s.title} className="border-b border-white/6 pb-8 last:border-0 last:pb-0">
                 <h2 className="font-display text-display-sm text-off-white mb-4">{s.title}</h2>

@@ -4,25 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, Globe } from 'lucide-react'
 import { useI18n } from '@/lib/i18n'
 import { drawerVariants, overlayVariants } from '@/lib/animations'
-
-const Logo = () => (
-  <Link to="/" className="flex items-center gap-3 group" aria-label="Estates & Heritage Advisors Home">
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="36" height="36" rx="6" fill="#0f3d52" />
-      <path d="M18 6L30 15V30H6V15L18 6Z" stroke="#eaa939" strokeWidth="1.5" fill="none" />
-      <path d="M14 30V22H22V30" stroke="#eaa939" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <circle cx="18" cy="15" r="2" fill="#eaa939" />
-    </svg>
-    <div>
-      <div className="font-display text-base font-600 tracking-tight text-off-white leading-none group-hover:text-gold transition-colors duration-300" style={{ fontWeight: 600 }}>
-        E&amp;H Advisors
-      </div>
-      <div className="font-sans text-[9px] font-500 tracking-[0.2em] uppercase text-mist/70 mt-0.5">
-        Estates &amp; Heritage
-      </div>
-    </div>
-  </Link>
-)
+import { contact } from '@/lib/contact'
+import Logo from '@/components/ui/Logo'
 
 interface NavLink {
   href: string
@@ -101,11 +84,11 @@ export default function Header() {
                 {lang.toUpperCase()}
               </button>
               <a
-                href="tel:+919818012345"
+                href={contact.phoneTel}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg font-sans text-sm text-mist hover:text-gold transition-all duration-200"
               >
                 <Phone size={14} />
-                <span>+91 98180 12345</span>
+                <span>{contact.phoneDisplay}</span>
               </a>
               <Link to="/contact" className="btn-primary text-xs py-2.5 px-5">
                 {t.nav.bookCall}
@@ -168,11 +151,11 @@ export default function Header() {
               </nav>
               <div className="p-5 border-t border-white/8 flex flex-col gap-3">
                 <a
-                  href="tel:+919818012345"
+                  href={contact.phoneTel}
                   className="flex items-center gap-3 p-3 rounded-xl bg-navy-mid/50 border border-white/8 font-sans text-sm text-off-white"
                 >
                   <Phone size={16} className="text-gold" />
-                  +91 98180 12345
+                  {contact.phoneDisplay}
                 </a>
                 <Link to="/contact" className="btn-primary text-center">
                   {t.nav.bookCall}

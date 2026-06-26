@@ -35,8 +35,8 @@ function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; 
           {project.description}
         </p>
         <p className="font-sans text-xs text-mist/50 mb-4">Developer: {project.developer}</p>
-        <Link to={`/projects/${project.slug}`} className="btn-ghost-gold w-full justify-center text-xs group">
-          View Project Details
+        <Link to="/contact" className="btn-ghost-gold w-full justify-center text-xs group">
+          Discuss This Project
           <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
@@ -65,8 +65,8 @@ export default function FeaturedProperties() {
             </motion.h2>
           </div>
           <motion.div variants={fadeUp}>
-            <Link to="/projects" className="btn-outline group shrink-0">
-              View All Projects
+            <Link to="/contact" className="btn-outline group shrink-0">
+              Schedule an Advisory Call
               <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>

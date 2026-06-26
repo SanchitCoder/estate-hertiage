@@ -1,12 +1,7 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Calendar, Clock, Download, CheckCircle2, ArrowRight } from 'lucide-react'
+import { Calendar, Clock, ArrowRight } from 'lucide-react'
 import { articles } from '@/data/articles'
-import { reportDownloadSchema, type ReportDownloadForm } from '@/lib/validators'
-import { Input, Select } from '@/components/ui/Input'
-import Button from '@/components/ui/Button'
 import { staggerContainer, fadeUp, scaleIn } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
 import Badge from '@/components/ui/Badge'
@@ -16,24 +11,6 @@ export default function Insights() {
     'Gurugram Market Research & New Launch Insights',
     'Gurugram corridor reports, new launch analysis, and investment thesis notes from Estates & Heritage Advisors.'
   )
-
-  const [submitted, setSubmitted] = useState(false)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<ReportDownloadForm>({
-    resolver: zodResolver(reportDownloadSchema),
-    defaultValues: { buyerType: 'investor', budget: '2-5cr' },
-  })
-
-  const onSubmit = async (data: ReportDownloadForm) => {
-    await new Promise((r) => setTimeout(r, 800))
-    console.log('Report download:', data)
-    setSubmitted(true)
-    reset()
-  }
 
   const featured = articles.filter((a) => a.featured)
 
@@ -85,61 +62,6 @@ export default function Insights() {
       </section>
 
       <section className="section-pad bg-navy-mid/15">
-        <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="font-display text-display-lg text-off-white mb-4">
-              Download the Q2 2026 Gurugram New Launch Report
-            </h2>
-            <p className="font-sans text-base text-mist/70 leading-relaxed">
-              A concise market report for investors, NRIs, and premium homebuyers tracking Gurugram&apos;s most relevant new-launch opportunities.
-            </p>
-          </div>
-          <div className="glass-card border border-gold/15 rounded-2xl p-6 lg:p-8">
-            {submitted ? (
-              <div className="text-center py-8">
-                <CheckCircle2 size={48} className="text-gold mx-auto mb-4" />
-                <h3 className="font-display text-display-sm text-off-white mb-2">Report Requested</h3>
-                <p className="font-sans text-sm text-mist/70">We&apos;ll send the report to your email shortly.</p>
-                <button onClick={() => setSubmitted(false)} className="btn-outline mt-6 text-sm">Request Again</button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-                <Input label="Name" placeholder="Your Name" error={errors.name?.message} {...register('name')} />
-                <Input label="Mobile Number" placeholder="+91 98765 43210" type="tel" error={errors.phone?.message} {...register('phone')} />
-                <Input label="Email" placeholder="you@example.com" type="email" error={errors.email?.message} {...register('email')} />
-                <Select
-                  label="Buyer Type"
-                  options={[
-                    { value: 'investor', label: 'Investor' },
-                    { value: 'end-user', label: 'End-User' },
-                    { value: 'nri', label: 'NRI' },
-                    { value: 'channel-partner', label: 'Channel Partner' },
-                    { value: 'corporate', label: 'Corporate' },
-                  ]}
-                  error={errors.buyerType?.message}
-                  {...register('buyerType')}
-                />
-                <Select
-                  label="Budget Range"
-                  options={[
-                    { value: 'under-2cr', label: 'Under ₹2 Cr' },
-                    { value: '2-5cr', label: '₹2–5 Cr' },
-                    { value: '5-10cr', label: '₹5–10 Cr' },
-                    { value: '10cr-plus', label: '₹10 Cr+' },
-                  ]}
-                  error={errors.budget?.message}
-                  {...register('budget')}
-                />
-                <Button type="submit" variant="primary" size="lg" fullWidth loading={isSubmitting} iconRight={<Download size={16} />}>
-                  Download the Report
-                </Button>
-              </form>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad">
         <div className="container-wide">
           <h2 className="font-display text-display-lg text-off-white mb-8">All Research Notes</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -153,11 +75,6 @@ export default function Insights() {
                   <h3 className="font-display text-display-sm text-off-white mb-1 line-clamp-2">{article.title}</h3>
                   <p className="font-sans text-xs text-mist/60 mb-2">{article.readTime} min read</p>
                   <p className="font-sans text-sm text-mist/70 line-clamp-2">{article.excerpt}</p>
-                  {article.downloadable && (
-                    <button className="mt-2 flex items-center gap-1.5 text-xs font-sans text-gold hover:text-gold-light transition-colors">
-                      <Download size={12} /> Download PDF
-                    </button>
-                  )}
                 </div>
               </div>
             ))}
@@ -166,10 +83,10 @@ export default function Insights() {
       </section>
 
       <section className="py-12 text-center">
-        <a href="/contact" className="btn-outline group inline-flex">
+        <Link to="/contact" className="btn-outline group inline-flex">
           Discuss Market Context with an Advisor
           <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
+        </Link>
       </section>
     </div>
   )

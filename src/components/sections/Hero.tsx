@@ -38,7 +38,7 @@ export default function Hero() {
       <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80)' }}
+          style={{ backgroundImage: `url(${featured.image})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/92 to-navy-deep/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-transparent to-navy-deep/20" />
@@ -68,7 +68,7 @@ export default function Hero() {
                 {t.hero.ctaPrimary}
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link to="/projects" className="btn-outline">
+              <Link to="/contact" className="btn-outline">
                 {t.hero.ctaSecondary}
               </Link>
             </motion.div>
@@ -107,8 +107,8 @@ export default function Hero() {
                       <p className="font-sans text-xs text-mist/60">Developer</p>
                       <p className="font-display text-lg text-off-white">{featured.developer}</p>
                     </div>
-                    <Link to={`/projects/${featured.slug}`} className="btn-primary text-xs px-5 py-2.5">
-                      View Details
+                    <Link to="/contact" className="btn-primary text-xs px-5 py-2.5">
+                      Request Advisory
                     </Link>
                   </div>
                 </div>

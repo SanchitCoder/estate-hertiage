@@ -1,3 +1,5 @@
+import { projectImages } from '@/lib/images'
+
 export type ArticleCategory = 'Market Report' | 'Investment Note' | 'Corridor Analysis' | 'New Launch'
 
 export interface Article {
@@ -9,7 +11,6 @@ export interface Article {
   date: string
   readTime: number
   image: string
-  downloadable: boolean
   featured: boolean
   tags: string[]
 }
@@ -24,8 +25,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2026-04-01',
     readTime: 15,
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80',
-    downloadable: true,
+    image: projectImages.krisumiForestReserve,
     featured: true,
     tags: ['Gurugram', 'New Launch', '2026', 'Market Report'],
   },
@@ -38,8 +38,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2026-03-15',
     readTime: 10,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    downloadable: false,
+    image: projectImages.elanTheEmperor,
     featured: true,
     tags: ['CPR', 'Luxury', 'Investment Thesis'],
   },
@@ -52,8 +51,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2026-02-20',
     readTime: 8,
-    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-    downloadable: false,
+    image: projectImages.toninoLamborghini,
     featured: true,
     tags: ['SPR', 'Branded Residences', 'Tonino Lamborghini'],
   },
@@ -66,8 +64,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2026-01-28',
     readTime: 9,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-    downloadable: false,
+    image: projectImages.westinResidences,
     featured: false,
     tags: ['Dwarka Expressway', 'Infrastructure', 'Branded Residences'],
   },
@@ -80,8 +77,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2026-01-10',
     readTime: 8,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-    downloadable: false,
+    image: projectImages.m3mElieSaab,
     featured: false,
     tags: ['Golf Course Extension', 'Ultra Luxury', 'Capital Preservation'],
   },
@@ -94,8 +90,7 @@ export const articles: Article[] = [
     author: 'Estates & Heritage Advisors',
     date: '2025-12-20',
     readTime: 11,
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-    downloadable: true,
+    image: projectImages.maxEstates361,
     featured: false,
     tags: ['New Launch', 'Gurugram', 'SEO'],
   },

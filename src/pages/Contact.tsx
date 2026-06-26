@@ -3,15 +3,13 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, MessageCircle, Calendar, CheckCircle2, ArrowRight } from 'lucide-react'
-import { contactSchema, type ContactForm } from '@/lib/validators'
-import { Input, Textarea, Select } from '@/components/ui/Input'
+import { leadSchema, type LeadForm } from '@/lib/validators'
+import { Input } from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
-import { projects, corridorLabels } from '@/data/projects'
 import { staggerContainer, fadeUp, fadeLeft, fadeRight } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
-
-const WHATSAPP_NUMBER = '919818012345'
-const WHATSAPP_MESSAGE = encodeURIComponent("Hello! I'd like to discuss Gurugram real estate advisory with Estates & Heritage Advisors.")
+import { contact } from '@/lib/contact'
+import { submitContactForm } from '@/lib/webhook'
 
 export default function Contact() {
   usePageSEO(
@@ -20,21 +18,25 @@ export default function Contact() {
   )
 
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ContactForm>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: { buyerType: 'investor' },
+  } = useForm<LeadForm>({
+    resolver: zodResolver(leadSchema),
   })
 
-  const onSubmit = async (data: ContactForm) => {
-    await new Promise((r) => setTimeout(r, 800))
-    console.log('Contact:', data)
-    setSubmitted(true)
-    reset()
+  const onSubmit = async (data: LeadForm) => {
+    setSubmitError(null)
+    try {
+      await submitContactForm(data)
+      setSubmitted(true)
+      reset()
+    } catch {
+      setSubmitError('We could not submit your request. Please try again or reach us directly by phone or email.')
+    }
   }
 
   return (
@@ -63,7 +65,7 @@ export default function Contact() {
               <h2 className="font-display text-display-md text-off-white mb-6">Alternate Contact Options</h2>
               <div className="space-y-5">
                 <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+                  href={contact.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex gap-4 p-4 rounded-xl glass-card border border-emerald-500/20 hover:border-emerald-500/40 transition-colors"
@@ -80,8 +82,8 @@ export default function Contact() {
                   <div>
                     <p className="font-sans text-sm font-500 text-off-white mb-1">Schedule a Call</p>
                     <p className="font-sans text-xs text-mist/70 mb-2">Book a structured 30-minute advisory slot with our team.</p>
-                    <a href="tel:+919818012345" className="font-sans text-xs text-gold hover:text-gold-light transition-colors">
-                      Call +91 98180 12345
+                    <a href={contact.phoneTel} className="font-sans text-xs text-gold hover:text-gold-light transition-colors">
+                      Call {contact.phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -94,17 +96,17 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <a href="tel:+919818012345" className="flex gap-4 p-4 rounded-xl glass-card border border-white/8 hover:border-gold/20 transition-colors">
+                <a href={contact.phoneTel} className="flex gap-4 p-4 rounded-xl glass-card border border-white/8 hover:border-gold/20 transition-colors">
                   <Phone size={20} className="text-gold shrink-0" />
                   <div>
-                    <p className="font-sans text-sm font-500 text-off-white">+91 98180 12345</p>
+                    <p className="font-sans text-sm font-500 text-off-white">{contact.phoneDisplay}</p>
                   </div>
                 </a>
 
-                <a href="mailto:hello@estatesheritage.in" className="flex gap-4 p-4 rounded-xl glass-card border border-white/8 hover:border-gold/20 transition-colors">
+                <a href={contact.emailMailto} className="flex gap-4 p-4 rounded-xl glass-card border border-white/8 hover:border-gold/20 transition-colors">
                   <Mail size={20} className="text-gold shrink-0" />
                   <div>
-                    <p className="font-sans text-sm text-off-white">hello@estatesheritage.in</p>
+                    <p className="font-sans text-sm text-off-white">{contact.email}</p>
                   </div>
                 </a>
               </div>
@@ -114,69 +116,23 @@ export default function Contact() {
           <motion.div variants={fadeRight} initial="hidden" whileInView="visible" viewport={{ once: true }} className="lg:col-span-2">
             <div className="glass-card border border-white/10 rounded-2xl p-6 lg:p-8">
               <h2 className="font-display text-display-md text-off-white mb-2">Let&apos;s Understand What You Are Solving For</h2>
-              <p className="font-sans text-sm text-mist/60 mb-6">Serious real estate decisions deserve clarity, context, and timing discipline.</p>
+              <p className="font-sans text-sm text-mist/60 mb-6">Share your details and an advisor will reach out within one business day.</p>
 
               {submitted ? (
                 <div className="text-center py-12">
                   <CheckCircle2 size={48} className="text-gold mx-auto mb-4" />
                   <h3 className="font-display text-display-md text-off-white mb-2">Request Received</h3>
-                  <p className="font-sans text-sm text-mist/70">An advisor will reach out within one business day.</p>
-                  <button onClick={() => setSubmitted(false)} className="btn-outline mt-6 text-sm">Submit Another</button>
+                  <p className="font-sans text-sm text-mist/70">Thank you — your advisory request has been received. An advisor will reach out within one business day.</p>
+                  <button onClick={() => { setSubmitted(false); setSubmitError(null) }} className="btn-outline mt-6 text-sm">Submit Another</button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <Input label="Full Name" placeholder="Your Name" error={errors.name?.message} {...register('name')} />
-                    <Input label="Mobile Number" placeholder="+91 98765 43210" type="tel" error={errors.phone?.message} {...register('phone')} />
-                  </div>
+                  <Input label="Full Name" placeholder="Your Name" error={errors.name?.message} {...register('name')} />
+                  <Input label="Mobile Number" placeholder="+91 98765 43210" type="tel" error={errors.phone?.message} {...register('phone')} />
                   <Input label="Email Address" placeholder="you@example.com" type="email" error={errors.email?.message} {...register('email')} />
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <Select
-                      label="Corridor of Interest"
-                      options={[
-                        { value: '', label: 'Select corridor (optional)' },
-                        ...Object.entries(corridorLabels).map(([value, label]) => ({ value, label })),
-                      ]}
-                      error={errors.corridor?.message}
-                      {...register('corridor')}
-                    />
-                    <Select
-                      label="Project of Interest"
-                      options={[
-                        { value: '', label: 'Select project (optional)' },
-                        ...projects.map((p) => ({ value: p.slug, label: p.name })),
-                      ]}
-                      error={errors.project?.message}
-                      {...register('project')}
-                    />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <Select
-                      label="Budget Range"
-                      options={[
-                        { value: '', label: 'Select budget (optional)' },
-                        { value: 'under-2cr', label: 'Under ₹2 Cr' },
-                        { value: '2-5cr', label: '₹2–5 Cr' },
-                        { value: '5-10cr', label: '₹5–10 Cr' },
-                        { value: '10cr-plus', label: '₹10 Cr+' },
-                      ]}
-                      error={errors.budget?.message}
-                      {...register('budget')}
-                    />
-                    <Select
-                      label="Buyer Type"
-                      options={[
-                        { value: 'investor', label: 'Investor' },
-                        { value: 'end-user', label: 'End-User' },
-                        { value: 'nri', label: 'NRI' },
-                        { value: 'channel-partner', label: 'Channel Partner' },
-                        { value: 'corporate', label: 'Corporate' },
-                      ]}
-                      error={errors.buyerType?.message}
-                      {...register('buyerType')}
-                    />
-                  </div>
-                  <Textarea label="Message" placeholder="Tell us about your objective, timeline, and what you're evaluating..." rows={4} error={errors.message?.message} {...register('message')} />
+                  {submitError && (
+                    <p className="font-sans text-sm text-red-400" role="alert">{submitError}</p>
+                  )}
                   <Button type="submit" variant="primary" size="lg" fullWidth loading={isSubmitting} iconRight={<ArrowRight size={16} />}>
                     Request Advisory Call
                   </Button>

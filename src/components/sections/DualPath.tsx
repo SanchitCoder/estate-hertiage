@@ -76,7 +76,7 @@ export default function DualPath() {
                   </li>
                 ))}
               </ul>
-              <Link to="/invest" className="btn-primary group/btn">
+              <Link to="/contact" className="btn-primary group/btn">
                 Explore Investment Properties
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
               </Link>
@@ -117,7 +117,7 @@ export default function DualPath() {
                   </li>
                 ))}
               </ul>
-              <Link to="/sell" className="btn-ghost-gold group/btn">
+              <Link to="/contact" className="btn-ghost-gold group/btn">
                 Get Your Property Valued
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
               </Link>

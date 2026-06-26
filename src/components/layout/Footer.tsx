@@ -1,27 +1,8 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Phone, Mail, Linkedin, Instagram, Facebook } from 'lucide-react'
 import { useI18n } from '@/lib/i18n'
-
-function Logo({ tagline }: { tagline: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="36" height="36" rx="6" fill="#0f3d52" />
-        <path d="M18 6L30 15V30H6V15L18 6Z" stroke="#eaa939" strokeWidth="1.5" fill="none" />
-        <path d="M14 30V22H22V30" stroke="#eaa939" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        <circle cx="18" cy="15" r="2" fill="#eaa939" />
-      </svg>
-      <div>
-        <div className="font-display text-base font-600 text-off-white leading-none" style={{ fontWeight: 600 }}>
-          Estates &amp; Heritage Advisors
-        </div>
-        <div className="font-sans text-[9px] font-500 tracking-[0.2em] uppercase text-mist/70 mt-0.5">
-          {tagline}
-        </div>
-      </div>
-    </div>
-  )
-}
+import { contact } from '@/lib/contact'
+import Logo from '@/components/ui/Logo'
 
 export default function Footer() {
   const { t } = useI18n()
@@ -42,7 +23,7 @@ export default function Footer() {
       <div className="container-wide py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div className="lg:col-span-1">
-            <Logo tagline={t.footer.tagline} />
+            <Logo link={false} imageClassName="h-14 w-auto max-w-[240px]" />
             <p className="mt-4 font-sans text-sm text-mist/70 leading-relaxed">
               {t.footer.description}
             </p>
@@ -103,15 +84,15 @@ export default function Footer() {
                 </div>
               </li>
               <li>
-                <a href="tel:+919818012345" className="flex items-center gap-3 text-sm text-mist/80 font-sans hover:text-gold transition-colors duration-200">
+                <a href={contact.phoneTel} className="flex items-center gap-3 text-sm text-mist/80 font-sans hover:text-gold transition-colors duration-200">
                   <Phone size={16} className="text-gold shrink-0" />
-                  +91 98180 12345
+                  {contact.phoneDisplay}
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@estatesheritage.in" className="flex items-center gap-3 text-sm text-mist/80 font-sans hover:text-gold transition-colors duration-200">
+                <a href={contact.emailMailto} className="flex items-center gap-3 text-sm text-mist/80 font-sans hover:text-gold transition-colors duration-200">
                   <Mail size={16} className="text-gold shrink-0" />
-                  hello@estatesheritage.in
+                  {contact.email}
                 </a>
               </li>
             </ul>

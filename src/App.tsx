@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Layout from './components/layout/Layout'
 import FloatingWidgets from './components/FloatingWidgets'
-import ExitIntent from './components/sections/ExitIntent'
 
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
@@ -43,14 +42,13 @@ export default function App() {
             <Route path="privacy" element={<Privacy />} />
             <Route path="terms" element={<Terms />} />
             <Route path="disclaimer" element={<Disclaimer />} />
-            <Route path="invest" element={<Navigate to="/projects" replace />} />
+            <Route path="invest" element={<Navigate to="/contact" replace />} />
             <Route path="sell" element={<Navigate to="/contact" replace />} />
             <Route path="tools" element={<Navigate to="/insights" replace />} />
           </Route>
         </Routes>
       </Suspense>
       <FloatingWidgets />
-      <ExitIntent />
     </>
   )
 }

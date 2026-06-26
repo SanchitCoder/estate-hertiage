@@ -65,7 +65,7 @@ export const corridors: Corridor[] = [
       'NRIs drawn to premium resort-living formats.',
     ],
     cta: 'Explore CPR Opportunities',
-    ctaLink: '/projects?corridor=cpr',
+    ctaLink: '/contact',
   },
   {
     id: 'spr-sohna',

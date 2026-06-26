@@ -1,4 +1,5 @@
 import type { CorridorId } from './corridors'
+import { projectImages } from '@/lib/images'
 
 export type ProjectType = 'residential' | 'commercial'
 export type ProjectStatus = 'new-launch' | 'under-construction' | 'active'
@@ -152,7 +153,7 @@ export const projects: Project[] = [
         'Best suited for buyers seeking ultra-luxury with global design pedigree and corridor upside at the Dwarka Expressway / CPR confluence.',
     },
     brochureUrl: 'https://krisumi.com/project/waterside-residences-the-forest-reserve/',
-    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa5a6c3?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.krisumiForestReserve,
     budgetMin: 49000000,
     buyerObjectives: ['investor', 'end-user', 'nri'],
   },
@@ -239,7 +240,7 @@ export const projects: Project[] = [
         'Best suited for NRI investors and young professionals seeking managed rental yield with institutional developer backing.',
     },
     brochureUrl: 'https://maxestate-group.com/max-361-terraces/',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.maxEstates361,
     budgetMin: 24000000,
     buyerObjectives: ['investor', 'end-user', 'nri'],
   },
@@ -313,7 +314,7 @@ export const projects: Project[] = [
         'Best suited for HNI buyers seeking globally recognized branded residence positioning; verify pricing and configurations directly with sales team.',
     },
     brochureUrl: 'https://www.theresidencesgurugram.com/',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.westinResidences,
     buyerObjectives: ['end-user', 'nri', 'investor'],
   },
   {
@@ -403,7 +404,7 @@ export const projects: Project[] = [
         'Best suited for lifestyle-focused end-users and investors targeting the Aerocity-adjacent Dwarka belt; verify details with CP desk.',
     },
     brochureUrl: 'https://www.indiabulls.com/indiabulls-estate-club',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.indiabullsEstateClub,
     buyerObjectives: ['end-user', 'investor'],
   },
   {
@@ -482,7 +483,7 @@ export const projects: Project[] = [
         'Best suited for UHNI end-users and trophy-asset investors; verify pricing and timelines with Elan CP desk.',
     },
     brochureUrl: 'https://www.elanlimited.com/elan-emperor/',
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.elanTheEmperor,
     buyerObjectives: ['end-user', 'nri', 'investor'],
   },
   {
@@ -562,7 +563,7 @@ export const projects: Project[] = [
         'Best suited for UHNI buyers seeking globally branded scarcity assets; verify payment plan with M3M directly.',
     },
     brochureUrl: 'https://m3mindia.com/elie-saab/lp/',
-    image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.m3mElieSaab,
     budgetMin: 149900000,
     buyerObjectives: ['nri', 'investor', 'end-user'],
   },
@@ -630,7 +631,7 @@ export const projects: Project[] = [
       verdict: 'Best suited for NRI investors and HNI end-users seeking a globally credible branded asset.',
     },
     brochureUrl: 'https://toninolamborghiniresidences.signatureglobal.in/',
-    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
+    image: projectImages.toninoLamborghini,
     budgetMin: 15000000,
     buyerObjectives: ['investor', 'nri', 'end-user'],
   },

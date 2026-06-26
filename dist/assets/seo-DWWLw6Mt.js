@@ -1,0 +1,1 @@
+import{h as m}from"./index-CJdrwlDZ.js";function o(a,t){m.useEffect(()=>{if(document.title=a,t){let e=document.querySelector('meta[name="description"]');e||(e=document.createElement("meta"),e.setAttribute("name","description"),document.head.appendChild(e)),e.setAttribute("content",t)}},[a,t])}export{o as u};

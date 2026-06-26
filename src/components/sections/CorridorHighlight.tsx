@@ -28,8 +28,8 @@ export default function CorridorHighlight() {
             Estates & Heritage Advisors helps clients understand that difference before they commit capital.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <Link to="/corridors" className="btn-primary group">
-              Explore Gurugram Corridors
+            <Link to="/contact" className="btn-primary group">
+              Schedule an Advisory Call
               <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>

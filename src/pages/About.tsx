@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import { founder } from '@/data/team'
+import { founder, advisors } from '@/data/team'
 import { staggerContainer, fadeUp, fadeLeft, fadeRight } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
 
@@ -73,7 +73,8 @@ export default function About() {
             </motion.div>
             <motion.div variants={fadeRight} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <span className="section-label mb-3 block">Founder</span>
-              <h2 className="font-display text-display-xl text-off-white mb-6">{founder.name}</h2>
+              <h2 className="font-display text-display-xl text-off-white mb-2">{founder.name}</h2>
+              <p className="font-sans text-sm text-gold mb-6">{founder.role}</p>
               {founder.bio.map((para, i) => (
                 <p key={i} className="font-sans text-base text-mist/70 leading-relaxed mb-4">{para}</p>
               ))}
@@ -83,6 +84,45 @@ export default function About() {
       </section>
 
       <section className="section-pad bg-navy-mid/15">
+        <div className="container-wide">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-px bg-gold" />
+              <span className="section-label">Our Team</span>
+              <span className="w-8 h-px bg-gold" />
+            </motion.div>
+            <motion.h2 variants={fadeUp} className="font-display text-display-xl text-off-white">
+              The People Behind the Advisory
+            </motion.h2>
+          </motion.div>
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid lg:grid-cols-2 gap-12">
+            {advisors.map((member) => (
+              <motion.div key={member.name} variants={fadeUp} className="grid sm:grid-cols-[180px_1fr] gap-8 items-start">
+                <div
+                  className="relative rounded-2xl overflow-hidden max-w-[180px] bg-navy-mid/40"
+                  style={{ aspectRatio: member.imageAspect ?? '4 / 5' }}
+                >
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 to-transparent" />
+                </div>
+                <div>
+                  <h3 className="font-display text-display-sm text-off-white mb-1">{member.name}</h3>
+                  <p className="font-sans text-sm text-gold mb-4">{member.role}</p>
+                  {member.bio.map((para, i) => (
+                    <p key={i} className="font-sans text-sm text-mist/70 leading-relaxed mb-3 last:mb-0">{para}</p>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="section-pad">
         <div className="container-wide">
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
             <motion.h2 variants={fadeUp} className="font-display text-display-xl text-off-white">Philosophy</motion.h2>

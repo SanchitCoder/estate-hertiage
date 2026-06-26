@@ -1,12 +1,11 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Download, MessageCircle, Phone, ExternalLink, AlertTriangle } from 'lucide-react'
+import { ArrowRight, MapPin, MessageCircle, Phone, ExternalLink, AlertTriangle } from 'lucide-react'
 import { getProjectBySlug, getSimilarProjects, statusLabels, getCorridorLabel } from '@/data/projects'
 import { staggerContainer, fadeUp } from '@/lib/animations'
 import { usePageSEO } from '@/lib/seo'
+import { contact } from '@/lib/contact'
 import Badge from '@/components/ui/Badge'
-
-const WHATSAPP_NUMBER = '919818012345'
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -246,21 +245,10 @@ export default function ProjectDetail() {
               <Phone size={16} />
               Schedule Advisory Call
             </Link>
-            <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`} target="_blank" rel="noopener noreferrer" className="btn-outline group">
+            <a href={`https://wa.me/${contact.whatsapp}?text=${whatsappText}`} target="_blank" rel="noopener noreferrer" className="btn-outline group">
               <MessageCircle size={16} />
               WhatsApp Enquiry
             </a>
-            {project.brochureUrl ? (
-              <a href={project.brochureUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost-gold group">
-                <Download size={16} />
-                View Brochure
-              </a>
-            ) : (
-              <button className="btn-ghost-gold group">
-                <Download size={16} />
-                Download Brochure
-              </button>
-            )}
           </div>
         </section>
 

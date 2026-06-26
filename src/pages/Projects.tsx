@@ -42,8 +42,8 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
         <p className="font-sans text-xs text-mist/50 mb-3">Developer: {project.developer}</p>
         <p className="font-sans text-sm text-mist/70 leading-relaxed line-clamp-2 mb-4 flex-1">{project.description}</p>
-        <Link to={`/projects/${project.slug}`} className="btn-ghost-gold w-full justify-center text-xs group">
-          View Project Details
+        <Link to="/contact" className="btn-ghost-gold w-full justify-center text-xs group">
+          Discuss This Project
           <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { staggerContainer, fadeUp } from '@/lib/animations'
+import { contact } from '@/lib/contact'
 
 const sections = [
   {
@@ -56,7 +57,7 @@ You can control cookie settings through your browser settings. Disabling cookies
 • Opt out of marketing communications at any time
 • Lodge a complaint with the relevant data protection authority
 
-To exercise any of these rights, contact us at privacy@estatesheritage.in.`,
+To exercise any of these rights, contact us at ${contact.email}.`,
   },
   {
     title: '7. Retention',
@@ -98,8 +99,8 @@ export default function Privacy() {
           <div className="mt-10 p-5 bg-gold/8 border border-gold/20 rounded-xl">
             <p className="font-sans text-sm text-mist/70">
               <strong className="text-gold">Contact:</strong> For any privacy-related questions, write to us at{' '}
-              <a href="mailto:privacy@estatesheritage.in" className="text-gold hover:text-gold-light">privacy@estatesheritage.in</a> or call{' '}
-              <a href="tel:+919818012345" className="text-gold hover:text-gold-light">+91 98180 12345</a>.
+              <a href={contact.emailMailto} className="text-gold hover:text-gold-light">{contact.email}</a> or call{' '}
+              <a href={contact.phoneTel} className="text-gold hover:text-gold-light">{contact.phoneDisplay}</a>.
             </p>
           </div>
         </div>
